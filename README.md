@@ -11,17 +11,196 @@ UI-LAYOUTs is an open-source component library that makes easier for developers 
 # Folder Structure
 
 ```
-mdx-starter-repo/
-├── app/                  # Next.js app router pages
-├── components/           # Reusable UI components
-├── lib/                  # Utility functions and helpers
-├── public/               # Static assets
-├── styles/               # Global styles and themes
-├── types/                # TypeScript type definitions
+├── .turbo/
+│   └── turbo-build.log
+├── app/
+│   ├── (docs-page)/
+│   │   ├── components/
+│   │   │   ├── [...slug]/
+│   │   │   │   ├── not-found.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── get-started/
+│   │   │   └── page.mdx
+│   │   └── layout.tsx
+│   ├── example/
+│   │   └── page.tsx
+│   ├── live-components/
+│   │   └── [componentName]/
+│   │       ├── error.tsx
+│   │       ├── loading.tsx
+│   │       └── page.tsx
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── robots.ts
+│   ├── sitemap.ts
+│   └── token.css
+├── assets/
+│   ├── icons/
+│   │   ├── circle.png
+│   │   ├── component.svg
+│   │   ├── doc_icon2.png
+│   │   ├── doc_icon3.png
+│   │   ├── doc_icon4.png
+│   │   ├── doc_icon5.png
+│   │   ├── doc_star.png
+│   │   ├── home.svg
+│   │   ├── Icons.tsx
+│   │   ├── Rectangle.png
+│   │   └── triangle.png
+│   ├── img/
+│   │   ├── astronate1.jpg
+│   │   ├── astronate2.jpg
+│   │   ├── astronate3.jpg
+│   │   ├── astronate4.jpg
+│   │   └── bg.jpg
+│   ├── preview/
+│   │   ├── blob.png
+│   │   ├── buttons.svg
+│   │   ├── card.svg
+│   │   ├── carousel.svg
+│   │   ├── clip-path.svg
+│   │   ├── coffee.svg
+│   │   ├── drag-items.svg
+│   │   ├── faqs.svg
+│   │   ├── gallery.svg
+│   │   ├── gallerynew.svg
+│   │   ├── globe.svg
+│   │   ├── grid.svg
+│   │   ├── Group 5 (1).png
+│   │   ├── hero-section.svg
+│   │   ├── horizontal-scrolling.svg
+│   │   ├── image_masking.svg
+│   │   ├── image_mousetrail.svg
+│   │   ├── image-reveal.svg
+│   │   ├── mesh-gradient.png
+│   │   ├── modal.svg
+│   │   ├── motion-number.svg
+│   │   ├── mousetrail.svg
+│   │   ├── password.svg
+│   │   ├── Preview.tsx
+│   │   ├── responsive.svg
+│   │   ├── ripple.png
+│   │   ├── sparkles.svg
+│   │   ├── stacking card.svg
+│   │   ├── sticky.svg
+│   │   ├── tabs.svg
+│   │   ├── timeline.svg
+│   │   └── youtube-tags.svg
+│   ├── index.ts
+│   └── preview_bg.png
+├── components/
+│   ├── ui/
+│   │   ├── button.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   ├── scroll-area.tsx
+│   │   ├── tabs.tsx
+│   │   └── tree.tsx
+│   ├── uilayouts/
+│   │   ├── directional-drawer.tsx
+│   │   ├── liquid-gradient.tsx
+│   │   └── responsive-modal.tsx
+│   └── website/
+│       ├── code-components/
+│       │   ├── box-preview.tsx
+│       │   ├── client-pre-code.tsx
+│       │   ├── code-block.tsx
+│       │   ├── code-snippets.tsx
+│       │   ├── code-tabs.tsx
+│       │   ├── component-code-preview.tsx
+│       │   ├── component-preview.tsx
+│       │   ├── copy-button.tsx
+│       │   ├── copy-npm-button.tsx
+│       │   ├── iframe-component-preview.tsx
+│       │   ├── inlineCodeRenderer.tsx
+│       │   ├── inlinePreCodeRenderer.tsx
+│       │   ├── pagination.tsx
+│       │   ├── pre-code.tsx
+│       │   └── tree-view-code.tsx
+│       ├── icons/
+│       │   ├── github.tsx
+│       │   ├── index.tsx
+│       │   └── x.tsx
+│       ├── banner.tsx
+│       ├── buy-me-coffee.tsx
+│       ├── constant.tsx
+│       ├── container.tsx
+│       ├── copy-page.tsx
+│       ├── footer.tsx
+│       ├── gap-pattern.tsx
+│       ├── github-repo-btn.tsx
+│       ├── header.tsx
+│       ├── mobile-header.tsx
+│       ├── new-items-loading.tsx
+│       ├── searchbar.tsx
+│       ├── sidebar.tsx
+│       ├── table-of-compoents.tsx
+│       ├── theme-provider.tsx
+│       └── theme-switch.tsx
+├── configs/
+│   └── docs.ts
+├── const/
+│   └── docs.ts
+├── content/
+│   └── components/
+│       ├── accordion.mdx
+│       ├── animated-beam.mdx
+│       ├── blocks.mdx
+│       ├── blur-vignette.mdx
+│       └── buttons.mdx
+├── hooks/
+│   ├── use-media-query.tsx
+│   ├── useClickOutside.tsx
+│   ├── useClipBoarard.tsx
+│   ├── useMouted.tsx
+│   ├── useNewsLetter.tsx
+│   ├── useOptimizedIframe.ts
+│   └── useZustStore.tsx
+├── lib/
+│   ├── code.ts
+│   ├── component-projections.tsx
+│   ├── docs.tsx
+│   ├── get-component-code.ts
+│   ├── grouped-docs.ts
+│   ├── progressbar.tsx
+│   ├── shiki-highlighter.ts
+│   ├── toc.ts
+│   ├── transform-code-files.ts
+│   ├── tree-structure.tsx
+│   └── utils.ts
+├── public/
+│   ├── 50off.png
+│   ├── apple-touch-icon.png
+│   ├── blob.png
+│   ├── blocks-og.jpg
+│   ├── favicon-16x16.png
+│   ├── favicon.ico
+│   ├── nalaka.png
+│   ├── naymur.png
+│   ├── naymursprite.png
+├── registry/
+│   └── components/
+│       └── accordion/
+│           ├── faq.tsx
+│           ├── image-hover.tsx
+│           └── tailwind-image-accordion.tsx
+├── types/
+│   ├── docs.ts
+│   ├── nav.ts
+│   └── svg.d.ts
+├── .eslintrc.json
 ├── .gitignore
+├── bun.lock
+├── components.json
+├── mdx-components.tsx
 ├── next.config.ts
 ├── package.json
+├── postcss.config.mjs
+├── prettier.config.js
 ├── README.md
+├── registry.json
 └── tsconfig.json
 ```
 
