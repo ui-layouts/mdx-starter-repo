@@ -1,60 +1,53 @@
-import React, { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import docs from '@/configs/docs.json';
-import dynamic from 'next/dynamic';
+import React, { Suspense } from 'react';
+import { AllComponents } from '@/configs/docs';
+
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-  const paths = docs.dataArray.flatMap((category) =>
-    category.componentArray.map((component) => ({
-      componentName: component.componentName,
-    }))
+  const safe = AllComponents.filter(
+    (c: any) => c && typeof c.componentName === 'string'
   );
-  return paths;
+
+  return safe.map((c: any) => ({
+    componentName: c.componentName,
+  }));
 }
 
-export default function SectionPage({
-  params,
-}: {
-  params: { componentName: string };
+export default async function SectionPage(props: {
+  params: Promise<{ componentName: string }>;
 }) {
-  const { componentName } = params;
-  console.log(componentName);
+  const params = await props.params;
+  const componentName = params.componentName;
 
-  // Find the component data based on componentName
-  const component = docs.dataArray.reduce((found, category) => {
-    if (found) return found;
-    // console.log(category);
+  if (!componentName) notFound();
 
-    return category.componentArray.find(
-      (comp) => comp.componentName === componentName
-    );
-  }, null as any);
-  // console.log(component);
+  const component =
+    AllComponents.find(
+      (c: any) =>
+        c?.slug === componentName || c?.componentName === componentName
+    ) ?? null;
 
-  console.log(componentName);
+  if (!component || !component.componentSrc) notFound();
 
-  if (!component) {
-    notFound();
-  }
   const isFramerScrolling = componentName === 'framerhorizontalscroll';
-
-  const ComponentPreview = component?.filesrc
-    ? dynamic(() => import(`../../../registry/${component.filesrc}`), {
-        loading: () => <div>Loading preview...</div>,
-      })
-    : null;
+  const ComponentPreview = component.componentSrc;
 
   return (
     <section
-      className={`${isFramerScrolling ? '' : 'flex justify-center items-center '} min-h-screen rounded-md  dark:bg-[#000000] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:20px_20px]`}
+      className={`${
+        isFramerScrolling ? '' : 'flex justify-center items-center h-full'
+      } min-h-screen rounded-md bg-codebg`}
     >
       <div className='px-4 w-full'>
-        {ComponentPreview ? (
-          <Suspense fallback={<div>Loading preview...</div>}>
-            <ComponentPreview />
-          </Suspense>
-        ) : (
-          <div>Component not found</div>
-        )}
+        <Suspense
+          fallback={
+            <div className='bg-neutral-200 dark:bg-neutral-900 w-full min-h-screen animate-pulse' />
+          }
+        >
+          <ComponentPreview />
+        </Suspense>
       </div>
     </section>
   );

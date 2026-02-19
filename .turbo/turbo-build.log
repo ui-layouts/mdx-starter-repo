@@ -1,0 +1,248 @@
+
+> ui-layouts@0.1.0 build F:\startup\ui-layout-lib\ui-layout\ui-layout-main\uilayouts-private\apps\ui-layout
+> next build
+
+   ▲ Next.js 15.2.3
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+ ⨯ ESLint: Failed to load plugin 'turbo' declared in '..\..\.eslintrc.js » @repo/eslint-config/library.js » eslint-config-turbo': Cannot convert undefined or null to object Referenced from: F:\startup\ui-layout-lib\ui-layout\ui-layout-main\uilayouts-private\node_modules\.pnpm\eslint-config-turbo@1.13.4_eslint@8.57.1\node_modules\eslint-config-turbo\index.js
+   Collecting page data ...
+   Generating static pages (0/212) ...
+component card-globe-default
+component button-hover-6
+component classname-slider
+component file-upload-default
+component multi-selector-default
+component tagsedit-false
+component time-picker
+component date-picker
+component motion-number-slider
+component datetime-picke-default
+component tags-input
+component imagemodals
+component media-modal-default
+component linear-modal-default
+component linear-modal-standalone
+component linear-modal-center-content
+component gallery-modal-accordion
+component gallery-modal-slider
+component gallery-modal-unsplash
+component productcard1
+component productcard2
+component creative-hover-card
+component productcard4
+component productcard3
+component productcard5
+component productcard6
+component spotlight-card1
+component 3d-marquee
+component logos-marquee
+component creative-clippath
+component corporate-clippath
+component symbolic-clippath
+component watersplash-clippath
+component creative-mask-clippath
+component creative-imagemasking
+component center-imagemasking
+component animal-imagemasking
+component fixedbg-imagemasking
+component animated-beam-bidirectional
+component animated-beam-default
+component blur-vignette-card
+component blur-vignette-img
+component animated-beam-unidirectional
+component bg-blocks-one
+component animated-beam-multiple-input
+component animated-beam-multiple-output
+component img-ripple-effect
+component single-img-ripple-effect
+component mesh-gradient-background
+component card-globe-white
+component sparkles-globe
+component horizontalscroll
+component stacking-card
+component css-image-stacking
+component smooth-scroll
+component css-card-stacking
+component sticky-scroll-section
+component sticky-hero-section
+component sticky-gallery
+component sparkles-section
+component sparkles-branding
+component sparkles-title
+component sparkles-title2
+component sparkles-title3
+component phone-input-default
+component button-hover-7
+component button-hover-5
+component button-hover-8
+component button-hover-9
+component button-hover-10
+component button-hover-12
+component button-hover-11
+component button-hover-14
+component button-hover-13
+component creative-button-1
+component button-rotating-gradient
+component creative-button-2
+component animated-logo-footer
+component noise-effect
+component scale-slider
+component number-slider
+component thumbnail-slider
+component vertical-slider
+component vertical-thumbnail-slider
+component vertical-thumbnail-autostart-slider
+component autoscroll-slider
+component horizontal-progressive-carousel
+component vertical-progressive-carousel
+component watersplash-imagemasking
+component hexagon2-videomasking
+component hover-footer
+component autostart-slider
+component framer-drag-sliding-carousel
+component framer-normal-carousel
+component framer-carousel-1
+component framer-autoplay-carousel
+component framer-draggable-carousel
+component scroll-animation-text
+component scroll-animation-default
+component scroll-animation-repeat
+component timeline-animation-default
+component text-scroll-animation
+component spotlight-card2
+component spotlight-card3
+component maintabs
+component creative-tab
+component register-tab
+component image-tab1
+component creative-videomasking
+component hexagon-videomasking
+component splashwater-videomasking
+component stripecard2
+component dual-range-slider
+component static-range-slider
+component position-range-slider
+component pass-strength-dotted-indicator
+component showhide-pass
+component pass-strength-hover-indicator
+component pass-strengthindicator
+component pass-strength-inline-indicator
+component number-flow-trading
+component motion-number-upvotes
+component motion-number-input
+component image-mousetrail-default
+component grid-layout-accordion
+component multi-layout-accordion
+component faq-accordion
+component sparkles-title4
+component buyme-acoffee
+component scroll-text-marquee-unidirectional
+component scroll-text-marquee-bidirectional
+component randomized-text-unveil
+component single-layout-accordion
+component image-hover-accordion
+component tailwind-image-accordion
+component default-slider
+component textoverlay-videomasking
+component gradient-border
+component stripecard
+component hovercard4
+component hovercard3
+component magnified-tab
+component spotlight-card4
+component image-mousetrail-small
+component image-mousetrail-disappear
+component image-mousetrail-without-component
+component directional-drawer-default
+component chat-form-dropzone
+component imgpreview-dropzone
+component framer-multi-carousel
+component framer-thumbnails
+component framer-moveable-thumbnails
+component drag-items
+component infintyband
+component framerhorizontalscroll
+0
+component boxgrid
+component normalGrid
+component conditionGrid
+component default-marquee
+component verticle-marquee
+component align-slider
+component hovercard1
+component hovercard2
+component image-reveal
+component image-reveal2
+component liquid-gradient
+component uilayouts-github-button
+component blur-vignette-video
+   Generating static pages (53/212) 
+component confirm-pass-check
+component button-background-shine
+component button-background-spotlight
+component button-hover-active
+component button-hover-2
+component button-hover-4
+component button-hover-3
+component left-directional-drawer
+component top-directional-drawer
+component bottom-directional-drawer
+component motion-drawer-default
+component responsive-header-default
+[Function: drawerBtn]
+component responsive-modal-default
+component liquid-glass-mobile-icons
+component liquid-glass-sidebar-menu
+component unsplashGrid
+component dialog-default
+component right-motion-drawer
+component liquid-glass-weather
+component liquid-glass-notification
+component default-color-picker
+component raws-color-picker
+[]
+   Generating static pages (106/212) 
+component swapy-handle
+component opacity-swapy
+component swapy-without-components
+component default-swapy
+component mesh-shadergradient
+component mesh-gradient-background2
+component mesh-gradient-background3
+component r3f-blob
+   Generating static pages (159/212) 
+component image-tab-standalone
+component image-tab2
+ ✓ Generating static pages (212/212)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                          Size  First Load JS
+┌ ○ /                                             38.9 kB         465 kB
+├ ○ /_not-found                                     987 B         106 kB
+├ ○ /components                                   2.12 kB         115 kB
+├ ● /components/[...slug]                          111 kB        1.07 MB
+├ ○ /example                                      1.47 kB         161 kB
+├ ○ /get-started                                  9.82 kB         964 kB
+├ ○ /labs                                         10.9 kB         236 kB
+├ ● /live-components/[componentName]              5.68 kB         562 kB
+├   ├ /live-components/liquid-glass-sidebar-menu
+├   ├ /live-components/liquid-glass-mobile-icons
+├   ├ /live-components/liquid-glass-weather
+├   └ [+197 more paths]
+├ ○ /robots.txt                                     150 B         105 kB
+├ ○ /sitemap.xml                                    150 B         105 kB
+└ ○ /work-with-us                                   223 B         239 kB
++ First Load JS shared by all                      105 kB
+  ├ chunks/587980bd-f794bd019a2ce4dd.js           53.3 kB
+  ├ chunks/6319-2bfab63c6bf74b6d.js               45.9 kB
+  └ other shared chunks (total)                   5.95 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

@@ -1,0 +1,140 @@
+export const metadata = {
+  metadataBase: new URL("https://ui-layouts.com"),
+
+  title: "Accordion",
+  description: "A flexible multi-expand accordion component with smooth animations and customizable styling. Built with React, TypeScript, and Tailwind CSS for modern web applications. Perfect for FAQs, content organization, and collapsible sections.",
+  keywords: [
+    "Accordion component",
+    "React accordion",
+    "Multi-expand accordion",
+    "Tailwind CSS accordion",
+    "animated accordion",
+    "collapsible content",
+    "UI components library",
+    "Next.js accordion",
+    "TypeScript components",
+    "responsive accordion",
+    "FAQ component",
+    "expandable sections",
+    "toggle component",
+    "interactive accordion",
+    "modern UI components",
+    "content organization",
+    "collapsible UI",
+    "accordion animation",
+    "dropdown sections",
+    "web components"
+  ],
+  authors: [{ name: "Naymur Rahman", url: "https://twitter.com/naymur_dev" }],
+  creator: "@naymur_dev",
+  publisher: "UI Layouts",
+  openGraph: {
+    title: "Accordion Component | UI Layouts",
+    description: "A flexible multi-expand accordion component with smooth animations and customizable styling. Perfect for FAQs and content organization.",
+    url: "https://ui-layouts.com/components/accordion",
+    images: [
+      {
+        url: 'https://ui-layouts.com/component-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'UI Layouts Components',
+      },
+    ],
+    siteName: "UI Layouts",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Accordion Component | UI Layouts",
+    description: "A flexible multi-expand accordion component with smooth animations and customizable styling. Perfect for FAQs and content organization.",
+    images: ['https://ui-layouts.com/component-og.jpg'],
+    creator: "@naymur_dev",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "technology",
+};
+
+<ComponentCodePreview name='grid-layout-accordion' hasReTrigger responsive/>
+
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList className='border-b w-full bg-white justify-start dark:bg-neutral-800 h-11'>
+  <TabsTrigger value='cli'>CLI</TabsTrigger>
+  <TabsTrigger value='manual'>Manual</TabsTrigger>
+</TabsList>
+
+  <TabsContent value="cli">
+   <CodeWithTabs>
+      ```bash
+      npx uilayouts@latest add accordion
+      ```
+
+      ```bash
+      npx shadcn@latest add 'https://www.ui-layouts.com/r/accordion.json'
+      ```
+
+   </CodeWithTabs>
+  </TabsContent>
+  
+  <TabsContent value="manual" manualType>
+
+```bash
+npm install motion
+```
+
+<CodeSnippets name="accordion" />
+
+</TabsContent>
+</Tabs>
+
+## Structure
+
+```tsx
+<Accordion defaultValue={['item-1']} multiple>
+  <AccordionItem value='item-1'>
+    <AccordionHeader></AccordionHeader>
+    <AccordionPanel></AccordionPanel>
+  </AccordionItem>
+  <AccordionItem value='item-2'>
+    <AccordionHeader></AccordionHeader>
+    <AccordionPanel></AccordionPanel>
+  </AccordionItem>
+  <AccordionItem value='item-3'>
+    <AccordionHeader></AccordionHeader>
+    <AccordionPanel></AccordionPanel>
+  </AccordionItem>
+</Accordion>
+```
+
+## Props
+
+| Prop         | Type        | Default   | Description                                                               |
+| ------------ | ----------- | --------- | ------------------------------------------------------------------------- |
+| defaultValue | string      | string[]  | undefined                                                                 |
+| multiple     | boolean     | false     | Whether the accordion allows multiple items to be active at the same time |
+| children     | ReactNode[] | undefined | The accordion items, including their headers and panels                   |
+| className    | string      | ''        | Optional CSS class for styling the accordion wrapper                      |
+
+## Example
+
+### Single Layout
+
+<ComponentCodePreview name='single-layout-accordion' />
+
+### Multi Layout
+
+<ComponentCodePreview name='multi-layout-accordion' />

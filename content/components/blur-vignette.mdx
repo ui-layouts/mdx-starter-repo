@@ -1,106 +1,104 @@
 export const metadata = {
-  title: 'Blur Vignette Effect',
-  description:
-    'Apple Vision Pro like Blur Effect, we can use it in images, video, card etc. lets make something great with this component',
+  metadataBase: new URL("https://ui-layouts.com"),
+
+  title: "Blur Vignette Effect",
+  description: "Apple Vision Pro-inspired blur-sm vignette effect for creating stunning visual overlays. Apply beautiful blur-sm effects to images, videos, cards, and UI elements. Features customizable intensity, smooth transitions, and modern glassmorphism design aesthetics.",
+  keywords: [
+    "Blur vignette effect",
+    "Apple Vision Pro blur-sm",
+    "Glassmorphism effect",
+    "Image blur-sm overlay",
+    "Video blur-sm effect",
+    "Card blur-sm component",
+    "Vignette blur-sm filter",
+    "React blur-sm component",
+    "CSS blur-sm effect",
+    "Modern blur-sm design",
+    "Visual overlay effect",
+    "Backdrop blur-sm filter",
+    "UI blur-sm effects",
+    "Interactive blur-sm",
+    "Customizable blur-sm",
+    "Smooth blur-sm transition",
+    "Image filter effect",
+    "Video overlay blur-sm",
+    "Card glassmorphism",
+    "Tailwind blur-sm utility"
+  ],
+  authors: [{ name: "Naymur Rahman", url: "https://twitter.com/naymur_dev" }],
+  creator: "@naymur_dev",
+  publisher: "UI Layouts",
+  openGraph: {
+    title: "Blur Vignette Effect | UI Layouts",
+    description: "Apple Vision Pro-inspired blur-sm vignette effect for creating stunning visual overlays on images, videos, and cards with modern glassmorphism design.",
+    siteName: "UI Layouts",
+    url: "https://ui-layouts.com/components/blur-vignette",
+    images: [
+      {
+        url: 'https://ui-layouts.com/component-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'UI Layouts Components',
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blur Vignette Effect | UI Layouts",
+    description: "Apple Vision Pro-inspired blur-sm vignette effect for stunning visual overlays on images, videos, and cards.",
+    images: ['https://ui-layouts.com/component-og.jpg'],
+    creator: "@naymur_dev",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "technology",
 };
 
 > Read Docs to know more [Blur Vignette](https://expensive.toys/blog/blur-vignette)
 
-## Video
+<ComponentCodePreview
+  name='blur-vignette-video'
+  jsonName='blur-vignette-video'
+  isFitheight
+/>
 
-<ComponentCodePreview name='blur-vignette-video' />
 
-## Card
+## Installation
 
-<ComponentCodePreview name='blur-vignette-img' isFitheight />
+<Tabs defaultValue="cli">
 
-## Image
+<TabsList className='border-b w-full bg-white justify-start dark:bg-neutral-800 h-11'>
+  <TabsTrigger value='cli'>CLI</TabsTrigger>
+  <TabsTrigger value='manual'>Manual</TabsTrigger>
+</TabsList>
 
-<ComponentCodePreview name='blur-vignette-card' isFitheight />
+  <TabsContent value="cli">
+   <CodeWithTabs>
+      ```bash
+      npx uilayouts@latest add blur-vignette
+      ```
 
-## Usage
+      ```bash
+      npx shadcn@latest add 'https://www.ui-layouts.com/r/blur-vignette.json'
+      ```
 
-```tsx blur-vignette.tsx
-import React, { createContext, useContext } from 'react';
-import { cn } from '@/lib/utils';
-interface BlurVignetteContextProps {
-  radius?: string;
-  inset?: string;
-  transitionLength?: string;
-  blur?: string;
-}
+   </CodeWithTabs>
+  </TabsContent>
+  
+  <TabsContent value="manual" manualType>
 
-const BlurVignetteContext = createContext<BlurVignetteContextProps>({
-  radius: '24px',
-  inset: '20px',
-  transitionLength: '44px',
-  blur: '6px',
-});
-
-export const useBlurVignetteContext = () => useContext(BlurVignetteContext);
-
-interface BlurVignetteProps {
-  classname?: string;
-  children: React.ReactNode;
-  radius?: string;
-  inset?: string;
-  transitionLength?: string;
-  blur?: string;
-  blurclassname?: string;
-}
-
-export const BlurVignette: React.FC<BlurVignetteProps> = ({
-  classname,
-  children,
-  radius = '24px',
-  inset = '20px',
-  transitionLength = '44px',
-  blur = '6px',
-}) => {
-  return (
-    <BlurVignetteContext.Provider
-      value={{ radius, inset, transitionLength, blur }}
-    >
-      <div
-        className={cn('relative aspect-square overflow-hidden', classname)}
-        style={{ borderRadius: radius }}
-      >
-        {children}
-      </div>
-    </BlurVignetteContext.Provider>
-  );
-};
-interface BlurVignetteArticleProps {
-  children?: React.ReactNode;
-  classname?: string;
-}
-
-export const BlurVignetteArticle: React.FC<BlurVignetteArticleProps> = ({
-  children,
-  classname,
-}) => {
-  const { radius, inset, transitionLength, blur } = useBlurVignetteContext();
-
-  return (
-    <div
-      className={cn(
-        'blur-vignette bottom-0 left-0 w-full h-full z-[1]',
-        classname
-      )}
-      style={
-        {
-          '--radius': radius,
-          '--inset': inset,
-          '--transition-length': transitionLength,
-          '--blur': blur,
-        } as React.CSSProperties
-      }
-    >
-      {children}
-    </div>
-  );
-};
-```
+<CodeSnippets name="blur-vignette" />
 
 ```css globals.css
 @layer utilities {
@@ -144,6 +142,8 @@ export const BlurVignetteArticle: React.FC<BlurVignetteArticleProps> = ({
   }
 }
 ```
+</TabsContent>
+</Tabs>
 
 ## Props
 
@@ -154,5 +154,24 @@ export const BlurVignetteArticle: React.FC<BlurVignetteArticleProps> = ({
 | `radius`           | `string`          | `24px`  | The radius for the vignette effect.                          |
 | `inset`            | `string`          | `20px`  | The inset value for the vignette effect.                     |
 | `transitionLength` | `string`          | `44px`  | The length of the transition effect applied to the vignette. |
-| `blur`             | `string`          | `6px`   | The blur amount for the vignette effect.                     |
+| `blur-sm`             | `string`          | `6px`   | The blur amount for the vignette effect.                     |
 | `blurclassname`    | `string`          |         | Optional CSS class for styling the blur effect container.    |
+
+
+## Examples
+
+### Card
+
+<ComponentCodePreview
+  name='blur-vignette-img'
+  isFitheight
+  jsonName='blur-vignette-img'
+/>
+
+### Image
+
+<ComponentCodePreview
+  name='blur-vignette-card'
+  isFitheight
+  jsonName='blur-vignette-card'
+/>

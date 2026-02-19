@@ -1,102 +1,159 @@
-import { Block, CodeBlock, parseProps } from 'codehike/blocks';
-import { Pre, RawCode, highlight } from 'codehike/code';
 import { z } from 'zod';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/website/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 import ComponentPreview from './component-preview';
-import { PreCode } from './pre-code';
-import docs from '@/configs/docs.json';
+import { AllComponents } from '@/configs/docs';
 import { Code, Eye } from 'lucide-react';
 import { ReactNode } from 'react';
+import { normalizeCodeChildren } from '@/lib/code';
+import { PreCode } from './pre-code';
 
-type TIframeCurrComponentProps = {
-  componentName: string;
-  iframelink?: string;
-};
+function blocksToFiles(blocks: any[]) {
+  return blocks.map((block, index) => {
+    const blocksname = block.className?.replace('language-', '') ?? 'txt';
+    const lang =
+      block.className?.split('.')?.[1] ||
+      block.className?.replace('language-', '') ||
+      'tsx';
 
-type IframeComponentPrieviewProps = {
-  children?: ReactNode; // Include children in the props
-};
+    return {
+      name: blocksname.toLowerCase(),
+      lang,
+      value: block.children,
+      meta: '',
+    };
+  });
+}
 
-const Schema = Block.extend({
+// --------------------------------------------
+// REPLACE CODEHIKE PROPS PARSER WITH ZOD
+// --------------------------------------------
+const Schema = z.object({
   name: z.string(),
   hasReTrigger: z.boolean(),
   responsive: z.boolean().optional(),
   isFitheight: z.boolean().optional(),
+  previewComp: z.boolean().optional(),
+  hideDeviceOpt: z.boolean().optional(),
+  children: z.any().optional(),
 });
+
+function parsePropsNoCodehike(input: unknown) {
+  return Schema.parse(input);
+}
+
+// --------------------------------------------
+// COMPONENT
+// --------------------------------------------
+type IframeComponentPrieviewProps = {
+  children?: ReactNode;
+};
+
 export default async function IframeComponentPrieview(
   props: unknown & IframeComponentPrieviewProps
 ) {
-  const { name, hasReTrigger, responsive, children, isFitheight } = parseProps(
-    props,
-    Schema
-  );
+  // parse using Zod (no more CodeHike)
+  const {
+    name,
+    hasReTrigger,
+    responsive,
+    children,
+    isFitheight,
+    hideDeviceOpt,
+    previewComp,
+  } = parsePropsNoCodehike(props);
+  const codeBlocks = normalizeCodeChildren(children);
 
-  const currComponent: TIframeCurrComponentProps | null =
-    docs.dataArray.reduce<TIframeCurrComponentProps | null>(
-      (acc, component) => {
-        const file = component?.componentArray?.find(
-          (file) => file.componentName === name
-        );
+  const files = blocksToFiles(codeBlocks);
 
-        if (file) {
-          acc = file;
-        }
-        return acc;
-      },
-      null
-    );
+  const matchedComponent =
+    AllComponents?.find((file) => file.componentName === name) || null;
+
+  const currComponent = matchedComponent
+    ? JSON.parse(JSON.stringify(matchedComponent))
+    : null;
+
+  // console.log('component', name, currComponent);
 
   if (!currComponent) {
-    return <div>Component not found</div>;
+    return <div>Componentss not found</div>;
   }
 
   return (
-    <>
+    <div className='not-prose relative z-0 flex items-center justify-between pb-3'>
       <Tabs
         defaultValue={`${name}preview`}
-        className='relative mt-1 w-full border-2 rounded-lg'
+        className='relative mt-1 w-full rounded-lg'
       >
-        <TabsList className='absolute left-0 pl-1 top-0 z-10 flex h-12 w-full justify-start rounded-b-none rounded-t-lg border-b-2 bg-[#e7e7e7] backdrop-blur-lg dark:bg-gray-900'>
+        <TabsList className='absolute left-0 pl-1 top-0 z-10 flex h-12 w-full justify-start rounded-b-none rounded-lg dark:bg-neutral-800'>
           <TabsTrigger
             value={`${name}preview`}
-            className='flex gap-2 items-center data-[state=active]:bg-white data-[state=active]:border-b-2 '
+            className='flex gap-2 items-center data-[state=active]:bg-zinc-200 data-[state=active]:border-b-2'
           >
-            <Eye />
-            Preview
+            <Eye className='w-5 h-5' /> Preview
           </TabsTrigger>
+
           <TabsTrigger
             value={`${name}code`}
-            className='flex gap-2 items-center data-[state=active]:bg-white data-[state=active]:border-b-2 '
+            className='flex gap-2 items-center data-[state=active]:bg-zinc-200 data-[state=active]:border-b-2'
           >
-            <Code />
-            Code
+            <Code className='w-5 h-5' /> Code
           </TabsTrigger>
         </TabsList>
+
+        {/* Preview Section */}
         <TabsContent
-          className='mt-0  px-0 pb-0 pt-12 ring-offset-background'
+          className='px-0 pb-0 pt-12 mt-2 rounded-xl ring-offset-background'
           value={`${name}preview`}
         >
           <ComponentPreview
+            previewComp={previewComp}
+            hideDeviceOpt={hideDeviceOpt}
             hasReTrigger={hasReTrigger}
             iframeComponent={currComponent.iframelink}
-            code={''}
-            responsive={responsive}
+            responsive={responsive || false}
             isNotCopy={true}
             isFitheight={isFitheight}
           />
         </TabsContent>
-        <TabsContent
-          className='mt-11 p-3 pt-2 pb-3 ring-offset-background'
-          value={`${name}code`}
-        >
-          {children}
+
+        {/* Code Section */}
+        <TabsContent className='mt-14' value={`${name}code`}>
+          {files.length === 1 ? (
+            <PreCode
+              codeblock={{
+                value: files[0].value,
+                lang: files[0].lang,
+                meta: files[0].meta,
+              }}
+              classname='p-0'
+            />
+          ) : (
+            <Tabs defaultValue={files[0].name} className='w-full'>
+              <TabsList>
+                {files.map((file) => (
+                  <TabsTrigger key={file.name} value={file.name}>
+                    {file.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              {files.map((file) => (
+                <TabsContent key={file.name} value={file.name}>
+                  <PreCode
+                    codeblock={{
+                      value: file.value,
+                      lang: file.lang,
+                      meta: file.meta,
+                    }}
+                    classname='p-0'
+                  />
+                </TabsContent>
+              ))}
+            </Tabs>
+          )}
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 }

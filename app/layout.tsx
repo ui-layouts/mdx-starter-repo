@@ -1,15 +1,33 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
 import Script from 'next/script';
 import { ThemeProvider } from '@/components/website/theme-provider';
-import { GeistMono } from 'geist/font/mono';
-import Progressbar from '@/lib/progressbar';
 import { siteConfig } from '@/lib/utils';
+import { Toaster } from 'sonner';
+import Progressbar from '@/lib/progressbar';
+import { DM_Sans, Manrope, Poppins, Space_Grotesk } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 
-const poppins = Poppins({
+export const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-poppins',
+});
+
+export const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-spaceGrotesk',
+});
+export const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900', '1000'],
+  variable: '--font-dmSans',
+});
+export const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-manrope',
 });
 
 export const metadata: Metadata = {
@@ -23,22 +41,60 @@ export const metadata: Metadata = {
     'Next.js',
     'React',
     'Tailwind CSS',
-    'framer-motion',
+    'Framer Motion',
+    'motion/react',
     'gsap',
     'lenis react',
-    'reactscroll animation',
+    'react scroll animation',
     'web animation',
+    'UI components',
+    'open source components',
+    'copy paste components',
+    'modern UI design',
     'design engineer',
+    'frontend developer tools',
     'image mousetrail',
-    'spotlight',
-    'tabs',
-    'image reveal',
-    'sparkles',
+    'spotlight effect',
+    'tabs component',
+    'image reveal animation',
+    'sparkles effect',
+    'shadcn components',
+    'shadcn ui',
+    'threejs ui-layouts',
+    'react three fiber',
+    'r3f',
+    '3D UI components',
+    'UI layouts',
+    'component library',
+    'react ui kit',
+    'tailwind ui kit',
+    'react animations',
+    'scroll animations',
+    'parallax scrolling',
+    'sticky scroll',
+    'timeline animation',
+    'masonry grid',
+    'animated cards',
+    'product cards',
+    'carousel component',
+    'slider component',
+    'drawer component',
+    'sidebar component',
+    'header component',
+    'footer component',
+    'responsive layouts',
+    'dashboard ui',
+    'portfolio ui',
+    'landing page components',
+    'interactive components',
+    'css effects',
+    'react gsap animations',
+    'three.js effects',
   ],
   authors: [
     {
       name: 'naymur rahman',
-      url: 'https://naymur-rahman.com/',
+      url: 'https://naymur.com/',
     },
   ],
   creator: 'naymur',
@@ -72,20 +128,46 @@ export const metadata: Metadata = {
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const isDev = process.env.NODE_ENV === 'development';
   return (
     <>
       <html lang='en' suppressHydrationWarning>
-        <body className={poppins.className}>
+        <Script
+          src='https://www.googletagmanager.com/gtag/js?id=G-BH0GZ3L39R'
+          strategy='afterInteractive'
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-BH0GZ3L39R');
+        `}
+        </Script>
+
+        <body
+          className={`
+    ${poppins.variable}
+    ${spaceGrotesk.variable}
+    ${dmSans.variable}
+    ${manrope.variable}
+    font-poppins
+  `}
+        >
+          <Analytics />
           <Progressbar>
             <ThemeProvider attribute='class'>
               <div className='isolate min-h-screen' vaul-drawer-wrapper=''>
+                {/* <SocialShareModal /> */}
                 {children}
               </div>
+              <Toaster />
             </ThemeProvider>
           </Progressbar>
         </body>

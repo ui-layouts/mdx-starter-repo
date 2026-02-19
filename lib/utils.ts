@@ -1,8 +1,12 @@
-import { ClassValue, clsx } from 'clsx';
+import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export function absoluteUrl(path: string) {
+  return `${process.env.NEXT_PUBLIC_CLIENT_URL}${path}`;
 }
 
 export function debounce(
@@ -47,11 +51,17 @@ export function throttle(fn: (...args: any[]) => any, wait: number) {
 }
 
 export const siteConfig = {
-  name: 'UI-Layout-starter-kit',
-  url: 'https://uilayout-starter-repo.vercel.app/',
-  ogImage: 'https://uilayout-starter-repo.vercel.app/og.jpg',
+  name: 'Ui-Layouts | Your Frontend Universe',
+  blocksName: 'Blocks | Ship faster with ready blocks',
+  url: 'https://ui-layouts.com',
+  blocksUrl: 'https://ui-layouts.com/blocks',
+  ogImage: 'https://www.ui-layouts.com/og.jpg',
+  BlocksOgImage: 'https://www.ui-layouts.com/blocks-og.jpg',
+  workWithUsOgImage: 'https://www.ui-layouts.com/work-with-usog.jpg',
   description:
-    'An open-source starter repo for those who want to create their own component library.',
+    'Beautifully designed React + Next.js + TailwindCSS components. 60+ ready-to-use, accessible, and customizable UI pieces — open source and free.',
+  blocksDescription:
+    'Creatively crafted blocks built with Tailwind CSS and shadcn/ui, ready to drop into real-world React and Next.js projects.  Clean, responsive, and easy to customize',
   links: {
     twitter: 'https://twitter.com/naymur_dev',
     linkedin: 'https://www.linkedin.com/in/naymur-rahman',
@@ -60,3 +70,8 @@ export const siteConfig = {
 };
 
 export type SiteConfig = typeof siteConfig;
+
+export const transition = {
+  type: 'spring',
+  duration: 0.4,
+} as const;

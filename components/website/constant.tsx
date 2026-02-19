@@ -1,114 +1,21 @@
-import preview from '@/assets/preview';
-import { Pre, RawCode, highlight } from 'codehike/code';
-import {
-  InlineAnnotation,
-  AnnotationHandler,
-  InnerLine,
-  InnerPre,
-  InnerToken,
-} from 'codehike/code';
+import { Icons } from '@/assets/icons/Icons';
+import preview from '@/assets/preview/Preview';
 
-export const wordWrap: AnnotationHandler = {
-  name: 'word-wrap',
-  Pre: (props) => <InnerPre merge={props} className='whitespace-pre-wrap' />,
-  Line: (props) => (
-    <InnerLine merge={props}>
-      <div
-        style={{
-          textIndent: `${-props.indentation}ch`,
-          marginLeft: `${props.indentation}ch`,
-        }}
-      >
-        {props.children}
-      </div>
-    </InnerLine>
-  ),
-  Token: (props) => <InnerToken merge={props} style={{ textIndent: 0 }} />,
-};
-export const callout: AnnotationHandler = {
-  name: 'callout',
-  transform: (annotation: InlineAnnotation) => {
-    const { name, query, lineNumber, fromColumn, toColumn, data } = annotation;
-    return {
-      name,
-      query,
-      fromLineNumber: lineNumber,
-      toLineNumber: lineNumber,
-      data: { ...data, column: (fromColumn + toColumn) / 2 },
-    };
-  },
-  Block: ({ annotation, children }) => {
-    const { column } = annotation.data;
-    return (
-      <>
-        {children}
-        <div
-          style={{ minWidth: `${column + 4}ch` }}
-          className='w-fit border bg-background border-current rounded px-2 relative -ml-[1ch] mt-1 whitespace-break-spaces'
-        >
-          <div
-            style={{ left: `${column}ch` }}
-            className='absolute border-l border-t border-current w-2 h-2 rotate-45 -translate-y-1/2 -top-[1px] bg-background'
-          />
-          {annotation.query}
-        </div>
-      </>
-    );
-  },
-};
-
-export const mark: AnnotationHandler = {
-  name: 'mark',
-  Line: ({ annotation, ...props }) => {
-    const color = annotation?.query || 'rgb(14 165 233)';
-    return (
-      <div
-        className='...'
-        style={{
-          borderLeft: 'solid 2px transparent',
-          borderLeftColor: annotation && color,
-          backgroundColor: annotation && `rgb(from ${color} r g b / 0.1)`,
-          padding: '3px 4px',
-        }}
-      >
-        <InnerLine merge={props} className='...' />
-      </div>
-    );
-  },
-  Inline: ({ annotation, children }) => {
-    const color = annotation?.query || 'rgb(14 165 233)';
+export function Link(props: { href?: string; children?: React.ReactNode }) {
+  if (props.href?.startsWith('hover:')) {
+    const hover = props.href.slice('hover:'.length);
     return (
       <span
-        className='...'
-        style={{
-          outline: `solid 1px rgb(from ${color} r g b / 0.5)`,
-          background: `rgb(from ${color} r g b / 0.13)`,
-          padding: '2px 3px',
-        }}
+        className='underline decoration-dotted underline-offset-4'
+        data-hover={hover}
       >
-        {children}
+        {props.children}
       </span>
     );
-  },
-};
-
-export const lineNumbers: AnnotationHandler = {
-  name: 'line-numbers',
-  Line: (props) => {
-    const width = props.totalLines.toString().length + 1;
-    return (
-      <div className='flex'>
-        <span
-          className='text-right opacity-50 select-none'
-          style={{ minWidth: `${width}ch` }}
-        >
-          {props.lineNumber}
-        </span>
-        <InnerLine merge={props} className='flex-1 pl-2' />
-      </div>
-    );
-  },
-};
+  } else {
+    return <a {...props} />;
+  }
+}
 
 interface ComponentInfo {
   componentName: string;
@@ -120,55 +27,15 @@ interface ComponentInfo {
   iframelink?: string;
 }
 
-interface Category {
-  name: string;
-  componentArray: ComponentInfo[];
-  type: string;
-}
-
 interface SidebarItem {
   name: string;
   href: string;
   isNew?: boolean;
 }
 
-interface SidebarCategory {
-  name: string;
-  items: SidebarItem[];
-}
-
-export const generateSidebarData = (data: Category[]): SidebarCategory[] => {
-  const sidebarData: SidebarCategory[] = [];
-  const processedCategories = new Set<string>();
-
-  data.forEach((category) => {
-    if (!processedCategories.has(category.name)) {
-      const sidebarCategory: SidebarCategory = {
-        name: category.name,
-        items: category.componentArray.map((component) => ({
-          name: component.parentName,
-          href: `/components/${component.parentlink}`,
-          isNew: component.isNew ? true : false, // You might want to determine this based on some criteria
-        })),
-      };
-
-      // Remove duplicates and sort items
-      sidebarCategory.items = Array.from(
-        new Set(sidebarCategory.items.map((item) => JSON.stringify(item)))
-      )
-        .map((item) => JSON.parse(item))
-        .sort((a, b) => a.name.localeCompare(b.name));
-
-      sidebarData.push(sidebarCategory);
-      processedCategories.add(category.name);
-    }
-  });
-
-  return sidebarData.sort((a, b) => a.name.localeCompare(b.name));
-};
 export const CardArr = [
   {
-    img: 'https://images.unsplash.com/photo-1543508282-6319a3e2621f?q=80&w=1200&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=1025&auto=format&fit=crop',
     title: 'Nike Air1',
     color: '#202020',
   },
@@ -363,5 +230,64 @@ export const items = [
     description:
       'A verdant mountain valley filled with lush vegetation and winding streams, epitomizing natural beauty.',
     tags: ['Valley', 'Lush', 'Mountains', 'Streams', 'Verdant'],
+  },
+];
+
+export const apps = [
+  {
+    id: 'carousel',
+    icon: Icons.doc_icon5,
+    name: 'Carousel',
+    imgSrc: preview.carousel,
+  },
+  {
+    id: 'tabs',
+    icon: Icons.doc_icon4,
+    name: 'Tabs',
+    imgSrc: preview.tabs,
+  },
+  {
+    id: 'faqs',
+    icon: Icons.doc_star,
+    name: 'Faqs',
+    imgSrc: preview.faqs,
+  },
+  {
+    id: 'grid',
+    icon: Icons.doc_icon3,
+    name: 'Grid',
+    imgSrc: preview.grid,
+  },
+  {
+    id: 'masking',
+    icon: Icons.doc_circle,
+    name: 'Masking',
+    onClick: () =>
+      window.open(
+        'https://www.ui-layouts.com/components/magnified-doc',
+        '_blank',
+        'noopener,noreferrer'
+      ),
+    imgSrc: preview.image_masking,
+  },
+  {
+    id: 'mouseTrail',
+    icon: Icons.doc_rectangle,
+    name: 'MouseTrail',
+    onClick: () =>
+      window.open('https://naymur.com/', '_blank', 'noopener,noreferrer'),
+    imgSrc: preview.image_mousetrail,
+  },
+  {
+    id: 'sticky',
+    icon: Icons.doc_icon2,
+    name: 'Sticky',
+    imgSrc: preview.sticky,
+  },
+  {
+    id: 'gallery',
+    icon: Icons.doc_triangle,
+    name: 'Gallery',
+    imgSrc: preview.galleryNew,
   },
 ];

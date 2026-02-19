@@ -1,10 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-
 import { getTableOfContents, TableOfContents } from './toc';
 
-// Update this line to reflect the new directory structure
 const docsDirectory = path.join(process.cwd(), 'content/components');
 
 export async function getDocBySlug(slug: string) {

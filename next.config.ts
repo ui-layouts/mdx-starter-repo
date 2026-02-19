@@ -1,0 +1,77 @@
+import path from 'path';
+import remarkGfm from 'remark-gfm';
+import createMDX from '@next/mdx';
+import rehypeSlug from 'rehype-slug';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeSlug],
+    jsx: true,
+  },
+});
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  experimental: {
+    turbo: {
+      rules: {
+        '*.html': {
+          loaders: ['raw-loader'],
+          as: '*.js',
+        },
+      },
+    },
+  },
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        hostname: 'images.unsplash.com',
+      },
+      {
+        hostname: 'img.freepik.com',
+      },
+      {
+        hostname: 'picsum.photos',
+      },
+      {
+        hostname: 'img.freepik.com',
+      },
+    ],
+  },
+  webpack: (
+    config: { resolve: { alias: any }; module: { rules: any } },
+    { isServer }: any
+  ) => {
+    config.module.rules.push({
+      test: /\.txt$/,
+      type: 'asset/source',
+    });
+    config.module.rules.push({
+      test: /\.tsx?$/,
+      resourceQuery: /raw/,
+      use: 'raw-loader',
+    });
+
+    return config;
+  },
+  // Add other Next.js config options here
+};
+
+export default withMDX(nextConfig);

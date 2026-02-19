@@ -1,0 +1,108 @@
+export const metadata = {
+  metadataBase: new URL("https://ui-layouts.com"),
+
+  title: "Background Blocks",
+  description: "A fully customizable grid component with active blocks for creating interactive layouts and dynamic backgrounds. Features responsive grid systems, hover effects, and customizable block animations. Perfect for modern web interfaces and engaging user experiences.",
+  keywords: [
+    "Background blocks component",
+    "Interactive grid system",
+    "Customizable grid blocks",
+    "Active blocks animation",
+    "React grid component",
+    "Dynamic background grid",
+    "Interactive layout blocks",
+    "Hover effect blocks",
+    "Responsive grid system",
+    "Animated grid blocks",
+    "UI grid component",
+    "Block-based layout",
+    "Interactive background",
+    "Grid animation effects",
+    "Customizable blocks",
+    "Modern grid design",
+    "Block hover effects",
+    "Dynamic grid layout",
+    "Interactive UI blocks",
+    "Tailwind CSS grid"
+  ],
+  authors: [{ name: "Naymur Rahman", url: "https://twitter.com/naymur_dev" }],
+  creator: "@naymur_dev",
+  publisher: "UI Layouts",
+  openGraph: {
+    title: "Background Blocks Component | UI Layouts",
+    description: "A fully customizable grid component with active blocks for creating interactive layouts and dynamic backgrounds with hover effects and animations.",
+    siteName: "UI Layouts",
+    url: "https://ui-layouts.com/components/blocks",
+    images: [
+      {
+        url: 'https://ui-layouts.com/component-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'UI Layouts Components',
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Background Blocks | UI Layouts",
+    description: "A fully customizable grid component with active blocks for creating interactive layouts and dynamic backgrounds.",
+    images: ['https://ui-layouts.com/component-og.jpg'],
+    creator: "@naymur_dev",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "technology",
+};
+
+<ComponentCodePreview name='bg-blocks-one' hasReTrigger isFitheight />
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList className='border-b w-full bg-white justify-start dark:bg-neutral-800 h-11'>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+   <CodeWithTabs>
+      ```bash
+      npx uilayouts@latest add blocks
+      ```
+
+      ```bash
+      npx shadcn@latest add 'https://www.ui-layouts.com/r/blocks.json'
+      ```
+   </CodeWithTabs>
+  </TabsContent>
+<TabsContent value="manual" manualType>
+
+```bash
+npm install motion
+```
+
+<CodeSnippets name="button" />
+
+</TabsContent>
+</Tabs>
+
+
+## Props
+
+| Prop            | Type                    | Default   | Description                                                                                          |
+| --------------- | ----------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| activeDivsClass | string                  | undefined | The class name applied to active blocks.                                                             |
+| activeDivs      | Object with number keys | undefined | A mapping where each key is a column index and each value is a set of row indices for active blocks. |
+| divClass        | string                  | undefined | The class name applied to each block.                                                                |
+| classname       | string                  | undefined | Additional class name applied to the outer container.                                                |
+| containerRef    | React.RefObject         | undefined | A React ref object for the container element used to calculate dimensions.                           |

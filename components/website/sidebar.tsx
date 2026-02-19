@@ -1,142 +1,168 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { ScrollArea } from '@/components/website/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Component, Rocket } from 'lucide-react';
-import { IRecentPage, useRecentPagesStore } from '@/hooks/useZustStore';
-import docsData from '@/configs/docs.json' assert { type: 'json' };
-import { useTheme } from 'next-themes';
-import { generateSidebarData } from './constant';
-import { MainComponents, SpecialComponents } from '@/configs/docs';
+import {
+  Atom,
+  Blocks,
+  ChevronsDown,
+  Component,
+  MousePointerClick,
+  PenTool,
+  Rocket,
+  X,
+} from 'lucide-react';
+import { useRecentPagesStore } from '@/hooks/useZustStore';
 
 export const basePath = [
   {
     href: '/get-started',
     name: 'Get Started',
     icon: <Rocket />,
+    tags: ['get-started', 'get started', 'get-started', 'get started'],
   },
   {
     href: '/components',
     name: 'Components',
     icon: <Component />,
+    tags: ['components', 'components', 'components', 'components'],
+  },
+  {
+    href: '/blocks',
+    name: 'Blocks',
+    icon: <Blocks />,
+    tags: ['blocks', 'blocks', 'blocks', 'blocks'],
+  },
+  {
+    href: '/mcp',
+    name: 'MCP',
+    icon: <Atom />,
+    tags: ['mcp', 'mcp', 'mcp', 'mcp'],
   },
 ];
 
 function DocsSidebar() {
   const pathname = usePathname();
-  const { setTheme } = useTheme();
-  const { addVisitedPage, getRecentPages, removeAllRecentPages } =
-    useRecentPagesStore();
-  const [recentPages, setRecentPages] = useState<IRecentPage[]>([]);
-  const groupedComponents = MainComponents.reduce((acc, component) => {
-    const group = component.component || null;
-    //@ts-ignore
-    if (!acc[group]) {
-      //@ts-ignore
-      acc[group] = [];
-    }
-    //@ts-ignore
-    acc[group].push(component);
-    return acc;
-  }, {});
 
-  const sidebarData = generateSidebarData(docsData.dataArray);
-  // console.log(sidebarData);
-
-  useEffect(() => {
-    const recentPage = getRecentPages();
-    setRecentPages(recentPage);
-  }, [getRecentPages]);
-
+  const { addVisitedPage } = useRecentPagesStore();
   return (
-    <aside className='h-full border-r'>
-      <div className='sticky top-0 h-screen w-full rounded-md pt-[3.2em]'>
-        <ScrollArea className='h-full py-4'>
-          <ul className='pb-1'>
-            {basePath?.map((link, index) => {
-              return (
-                <>
-                  <li key={`id-${index}`}>
-                    <Link
-                      href={link.href}
-                      onClick={() => addVisitedPage(link.href, link.name)}
-                      className={`flex gap-2 group font-medium items-center py-1  transition-all ${
-                        link.href === pathname
-                          ? 'active-nav'
-                          : 'text-slate-600 hover:text-slate-900  dark:text-slate-400 dark:hover:text-white'
-                      }`}
-                    >
-                      {React.cloneElement(link?.icon, {
-                        className: `${
-                          link.href === pathname
-                            ? 'dark:text-base-dark dark:bg-white bg-base-dark text-white'
-                            : 'dark:bg-gray-800 dark:text-white group-hover:bg-base-dark group-hover:text-white  dark:group-hover:bg-white dark:group-hover:text-base-dark'
-                        } h-7 w-7 border transition-all rounded-md p-1`,
-                      })}
-
-                      {link.name}
-                    </Link>
-                  </li>
-                </>
-              );
-            })}
-          </ul>
-          <h1 className='text-lg font-semibold pb-1'>Components</h1>
-          {SpecialComponents?.map((link: any) => {
-            return (
-              <>
-                <li
-                  key={link.href}
-                  className={`2xl:text-sm text-[0.81em]  flex items-center gap-1 dark:hover:text-white 2xl:py-1 py-0.5 pl-2 border-l transition-all ${
-                    link.href === pathname
-                      ? 'dark:border-white border-black text-black dark:text-white font-semibold'
-                      : 'dark:text-slate-400 2xl:font-normal font-medium hover:border-black/60 dark:hover:border-white/50 text-slate-500 hover:text-slate-900'
-                  }`}
-                  // data-active={link.id === pathname}
-                >
+    <>
+      <aside className='h-full lg:block hidden'>
+        <div className='h-full w-full'>
+          <ScrollArea className='h-[calc(100vh-6em)] px-3'>
+            <ul className='pb-1 pt-12'>
+              {basePath?.map((link, index) => (
+                <li key={`id-${index}`}>
                   <Link
                     href={link.href}
                     onClick={() => addVisitedPage(link.href, link.name)}
+                    className={`flex gap-2 group font-medium items-center py-1 transition-all ${
+                      link.href === pathname
+                        ? 'active-nav'
+                        : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                    }`}
                   >
+                    {React.cloneElement(link?.icon, {
+                      className: `${
+                        link.href === pathname
+                          ? 'dark:text-black dark:bg-white bg-black text-white'
+                          : 'dark:bg-zinc-900 dark:text-white group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black'
+                      } h-7 w-7 border transition-all rounded-md p-1`,
+                    })}
                     {link.name}
                   </Link>
-                  {link?.new && (
-                    <span className='2xl:text-xs text-[0.74em] bg-blue-500 text-white px-1 rounded'>
-                      New
-                    </span>
-                  )}
                 </li>
-              </>
-            );
-          })}
-          {Object.entries(groupedComponents).map(([group, items], index) => (
-            <ItemsWithName
-              group={group}
-              items={items}
-              key={index}
-              pathname={pathname}
-              addVisitedPage={addVisitedPage}
-            />
-          ))}
-        </ScrollArea>
-      </div>
-    </aside>
+              ))}
+            </ul>
+            {/* {recentPages.length > 0 && (
+                <div className='relative'>
+                  <div className='flex justify-between items-center'>
+                    <h1 className='xl:text-lg text-[1.05rem] font-semibold pb-1'>
+                      Recent Visited
+                    </h1>
+                    <TooltipProvider>
+                      <Tooltip delayDuration={200}>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={handleRemoveAllRecentData}
+                            className='xl:h-7 h-5 xl:w-7 w-5 rounded-md border dark:bg-zinc-900 bg-neutral-100 grid place-content-center'
+                          >
+                            <X className={`h-5 w-5 transition-all`} />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent className='border px-1 z-10 bg-primary-foreground'>
+                          <p>Remove</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+
+                  <ul>
+                    {recentPages.map((page) => (
+                      <li
+                        key={page.id}
+                        className={`font-normal 2xl:text-sm xl:text-base text-sm flex items-center dark:hover:text-white py-1 pl-2 border-l transition-all ${
+                          page.id === pathname
+                            ? 'dark:border-white border-black text-black dark:text-white font-semibold'
+                            : 'dark:text-slate-400 border-neutral-800 hover:border-black/60 dark:hover:border-white/50 text-slate-500 hover:text-slate-900'
+                        }`}
+                      >
+                        <Link
+                          href={page.id}
+                          onClick={() => addVisitedPage(page.id, page.name)}
+                        >
+                          {page.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )} */}
+            <div className='pb-16'>
+              {/* {Object.entries(groupedDocsNavigationCategories).map(
+                ([group, items], index) => (
+                  <ItemsWithName
+                    group={group}
+                    items={items}
+                    key={index}
+                    pathname={pathname}
+                    addVisitedPage={addVisitedPage}
+                  />
+                )
+              )} */}
+            </div>
+          </ScrollArea>
+        </div>
+      </aside>
+    </>
   );
 }
+
 export const ItemsWithName = ({
   group,
   items,
   pathname,
   addVisitedPage,
-}: any) => {
+}: {
+  group: string | null;
+  items: any[];
+  pathname: string;
+  addVisitedPage: (href: string, name: string) => void;
+}) => {
+  const [expandedItems, setExpandedItems] = useState<boolean>(true);
+
   const groupRef = useRef<HTMLDivElement>(null);
+  const showExpandButton = items.length > 2;
+  const itemsToShow =
+    expandedItems || !showExpandButton ? items : items.slice(0, 2);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   useEffect(() => {
     const activeItemIndex = items.findIndex(
-      (item: { id: any }) => item.id === pathname
+      (item: { href: string }) => item.href === pathname
     );
+
     if (activeItemIndex !== -1 && itemRefs.current[activeItemIndex]) {
       itemRefs.current[activeItemIndex]?.scrollIntoView({
         behavior: 'smooth',
@@ -144,21 +170,54 @@ export const ItemsWithName = ({
       });
     }
   }, [pathname, items]);
+
   return (
     <div ref={groupRef} key={group}>
-      <button className='text-[1rem] relative flex w-full items-center justify-between pr-4 cursor-pointer dark:font-normal dark:text-gray-100 font-normal capitalize my-1'>
+      <div
+        className={`xl:text-lg relative flex w-full items-center justify-between pr-4 cursor-pointer  dark:text-neutral-100 font-medium capitalize my-1`}
+      >
         {group}
-      </button>
-      <ul className='relative '>
-        {items.map((link: any, index: number) => (
+        {/* {showExpandButton && (
+          <TooltipProvider>
+            <Tooltip delayDuration={200}>
+              <TooltipTrigger asChild>
+                <button
+                  className='h-7 w-7 rounded-md dark:bg-zinc-900 border bg-neutral-100 grid place-content-center absolute top-0 right-3'
+                  onClick={() => setExpandedItems(!expandedItems)}
+                >
+                  <ChevronsDown
+                    className={`h-5 w-5 transition-all ${
+                      !expandedItems && showExpandButton
+                        ? 'rotate-180'
+                        : 'rotate-0'
+                    }`}
+                  />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent className='dark:bg-primary-base bg-neutral-50 text-primary border 2xl:text-base text-sm rounded-md px-2 py-1 -translate-y-1'>
+                <p className='capitalize'>
+                  {expandedItems ? 'Collapse' : 'Expand'}
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )} */}
+      </div>
+
+      <ul className='relative'>
+        {/* {!expandedItems && showExpandButton && (
+          <div className='absolute w-full bottom-0 left-0 h-7 bg-linear-to-t dark:from-neutral-950 from-zinc-50 from-20%' />
+        )} */}
+        {itemsToShow.map((link, index) => (
           <li
             key={link.href}
-            // @ts-ignore
-            ref={(el) => (itemRefs.current[index] = el)}
-            className={`2xl:text-sm text-[0.81em]  flex items-center gap-1 dark:hover:text-white 2xl:py-1 py-0.5 pl-2 border-l transition-all ${
+            ref={(el) => {
+              itemRefs.current[index] = el;
+            }}
+            className={`2xl:text-base xl:text-base text-sm flex items-center gap-1 dark:hover:text-white py-px pl-2 border-l transition-all ${
               link.href === pathname
                 ? 'dark:border-white border-black text-black dark:text-white font-semibold'
-                : 'dark:text-slate-400 2xl:font-normal font-medium hover:border-black/60 dark:hover:border-white/50 text-slate-500 hover:text-slate-900'
+                : 'dark:text-slate-400 2xl:font-normal font-medium dark:border-neutral-800 hover:border-black/60 dark:hover:border-white/50 text-slate-500 hover:text-slate-900'
             }`}
           >
             <Link
@@ -167,9 +226,14 @@ export const ItemsWithName = ({
             >
               {link.name}
             </Link>
+            {link?.updated && (
+              <span className='2xl:text-xs italic text-[0.74em]  text-blue-500'>
+                (Updated)
+              </span>
+            )}
             {link?.new && (
-              <span className='2xl:text-xs text-[0.74em] bg-blue-500 text-white px-1 rounded'>
-                New
+              <span className='2xl:text-xs text-[0.74em] text-green-500'>
+                (New)
               </span>
             )}
           </li>
@@ -178,4 +242,5 @@ export const ItemsWithName = ({
     </div>
   );
 };
+
 export default DocsSidebar;

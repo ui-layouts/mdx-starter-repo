@@ -20,16 +20,19 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
+    "types/**/*.d.ts",
     "lib/**/*",
-    "configs/docs.js",
-    "configs/docs.js"
+    "cli/src/index.js",
+    "next.config.ts"
   ],
   "exclude": ["node_modules"]
 }
